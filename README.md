@@ -9,4 +9,4 @@ docker-compose create
 3) Чекати, поки app не відпрацює.
 4) Запускаємо контейнер lab22-flyway-1. Чекаємо "flyway exited with code 0".
 5) Запускаємо контайнер lab22-new_app-1. 
-6) Після закінчення - можемо звірити результати - result.csv та result2.csv
+6) Заходимо на localhost:5000
