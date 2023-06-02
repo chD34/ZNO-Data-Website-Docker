@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>subject page</title>
+  <style>
+    body{
+      background: linear-gradient(180deg, rgba(69,165,218,1) 1%, rgba(74,196,228,1) 36%, rgba(61,251,252,1) 60%, rgba(194,218,218,0.9949229691876751) 100%);
+      background-repeat: no-repeat;
+      background-size: auto auto;
+      text-align: center;
+    }
+    input{
+      font-size: 20px;
+    }
+    select{
+      font-size: 20px;
+    }
+    h1{
+      font-size: 40px;
+      text-align: center;
+    }
+    th{
+      background-color: white;
+    }
+    table{
+      font-size: 20px;
+      margin-top: 30px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 300px;
+    }
+    a{
+      font-size:30px;
+      text-decoration: none;
+      background-color: white;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+    <div align="left">
+      <a href="{{url_for('index')}}">На головну</a>
+    </div>
+    <h1>Створення Subject</h1>
+    <form action="{{ url_for('create_subject') }}" method="POST">
+      <input type="text" name="subject_name" placeholder="subject_name" required>
+      <input type="submit" value="Create">
+    </form>
+    <h1>Видалення Subject</h1>
+    <form action="{{ url_for('delete_subject') }}" method="POST">
+       <select name="subject_name" required>
+       {% for value in s %}
+        <option value="{{value}}">{{value}}</option>
+       {% endfor %}
+      </select>
+        <input type="submit" value="Delete">
+    </form>
+    <table>
+    <tr>
+    {% for s in subjects %}
+      <th>{{ s.subject_name }}</th>
+    </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>

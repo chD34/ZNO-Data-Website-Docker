@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Сторінка з запитом</title>
+  <style>
+    body{
+      background: linear-gradient(180deg, rgba(69,165,218,1) 1%, rgba(74,196,228,1) 36%, rgba(61,251,252,1) 60%, rgba(194,218,218,0.9949229691876751) 100%);
+      background-repeat: no-repeat;
+      background-size: auto auto;
+    }
+    input{
+      font-size: 20px;
+    }
+    select{
+      font-size: 20px;
+    }
+    h1{
+      font-size: 40px;
+      text-align: center;
+    }
+    th{
+      background-color: #A9D9E2;
+    }
+    td{
+      background-color: white;
+    }
+    table{
+      font-size: 22px;
+      margin-top: 30px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 300px;
+    }
+    a{
+      font-size:30px;
+      text-decoration: none;
+      background-color: white;
+      border: 1px solid black;
+    }
+    select{
+      font-size: 25px;
+    }
+  </style>
+</head>
+<body>
+   <a href="{{url_for('index')}}">На головну</a>
+   <div align="center">
+<form method="POST" action="{{ url_for('requests', page=5) }}">
+  <select name="year" required>
+    <option value=2019>2019</option>
+    <option value=2021>2021</option>
+  </select>
+  <select name="subject_name" required>
+    {% for i in subject_names %}
+    <option value='{{i}}'>{{i}}</option>
+    {% endfor %}
+  </select>
+  <input type="submit" value="Підтвердити">
+</form>
+</div>
+  <table>
+    <tr>
+      <th>Регіон</th>
+      <th>Максимальне Значення</th>
+    </tr>
+    {% for result in max_ball %}
+    <tr>
+      <td>{{ result[0] }}</td>
+      <td>{{ result[1] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

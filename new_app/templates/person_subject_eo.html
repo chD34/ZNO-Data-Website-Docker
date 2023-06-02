@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>pse page</title>
+     <style>
+    body{
+      background: linear-gradient(180deg, rgba(69,165,218,1) 1%, rgba(74,196,228,1) 36%, rgba(61,251,252,1) 60%, rgba(194,218,218,0.9949229691876751) 100%);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    input{
+      font-size: 20px;
+    }
+    select{
+      font-size: 20px;
+    }
+    h1{
+      font-size: 40px;
+      text-align: center;
+    }
+    th{
+      background-color: white;
+    }
+    table{
+      margin-top: 20px;
+    }
+    a{
+      font-size:30px;
+      text-decoration: none;
+      background-color: white;
+      border: 1px solid black;
+    }
+   p{
+     font-weight:bold;
+   }
+   li{
+     list-style-type: none;
+     font-size: 30px;
+     color: red;
+     background-color: white;
+     margin: 30px;
+   }
+  </style>
+</head>
+<body>
+    <a href="{{url_for('index')}}">На головну</a>
+      {% block content %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="errors">
+          <li>{{ messages }}</li>
+      </ul>
+    {% endif %}
+    {% endwith %}
+    {% endblock %}
+    <h1>Створення Person-Subject-Eo</h1>
+    <form action="{{ url_for('create_pse') }}" method="POST">
+      <select name="out_id" required>
+       {% for value in id_values %}
+        <option value="{{value}}">{{value}}</option>
+       {% endfor %}
+      </select>
+      <select name="subject_name" required>
+       {% for value in s %}
+        <option value="{{value}}">{{value}}</option>
+       {% endfor %}
+      </select>
+      <select name="eo_name" required>
+         {% for value in eo_values %}
+        <option value="{{value}}">{{value}}</option>
+         {% endfor %}
+      </select>
+      <select name="ball" required>
+        {% for el in ball_list %}
+        <option value={{el}}>{{el}}</option>
+        {% endfor %}
+      </select>
+      <select name="ball_12" required>
+        <option value=0>0</option>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+        <option value=6>6</option>
+        <option value=7>7</option>
+        <option value=8>8</option>
+        <option value=9>9</option>
+        <option value=10>10</option>
+        <option value=11>11</option>
+        <option value=12>12</option>
+      </select>
+      <select name="ball_100" required>
+        {% for el in ball_100_list %}
+        <option value={{el}}>{{el}}</option>
+        {% endfor %}
+      </select>
+      <select name="status" required>
+        <option value='Зараховано'>Зараховано</option>
+        <option value='Не подолав поріг'>Не подолав поріг</option>
+        <option value="Не з'явився">Не з'явився</option>
+      </select>
+      <input type="text" name="lang" placeholder="lang">
+      <input type="text" name="dpa_level" placeholder="dpa_level" >
+      <input type="text" name="pt_name" placeholder="pt_name">
+      <input type="text" name="pt_reg" placeholder="pt_reg">
+      <input type="text" name="pt_area" placeholder="pt_area">
+      <input type="text" name="pt_ter" placeholder="pt_ter">
+      <select name="adapt_scale" required>
+        <option value=0>0</option>
+      </select>
+      <select name="year" required>
+        <option value=2019>2019</option>
+        <option value=2021>2021</option>
+      </select>
+      <input type="submit" value="Create">
+    </form>
+    <h1>Оновлення Person-Subject-Eo</h1>
+    <form action="{{ url_for('update_pse') }}" method="POST">
+      <select name="out_id" required>
+       {% for value in id_values %}
+        <option value="{{value}}">{{value}}</option>
+       {% endfor %}
+      </select>
+      <select name="subject_name" required>
+       {% for value in s %}
+        <option value="{{value}}">{{value}}</option>
+       {% endfor %}
+      </select>
+      <select name="eo_name" required>
+         {% for value in eo_values %}
+        <option value="{{value}}">{{value}}</option>
+         {% endfor %}
+      </select>
+            <select name="ball" required>
+        {% for el in ball_list %}
+        <option value={{el}}>{{el}}</option>
+        {% endfor %}
+      </select>
+      <select name="ball_12" required>
+        <option value=0>0</option>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+        <option value=6>6</option>
+        <option value=7>7</option>
+        <option value=8>8</option>
+        <option value=9>9</option>
+        <option value=10>10</option>
+        <option value=11>11</option>
+        <option value=12>12</option>
+      </select>
+      <select name="ball_100" required>
+        {% for el in ball_100_list %}
+        <option value={{el}}>{{el}}</option>
+        {% endfor %}
+      </select>
+      <select name="status" required>
+        <option value='Зараховано'>Зараховано</option>
+        <option value='Не подолав поріг'>Не подолав поріг</option>
+        <option value="Не з'явився">Не з'явився</option>
+      </select>
+      <input type="text" name="lang" placeholder="lang">
+      <input type="text" name="dpa_level" placeholder="dpa_level" >
+      <input type="text" name="pt_name" placeholder="pt_name">
+      <input type="text" name="pt_reg" placeholder="pt_reg">
+      <input type="text" name="pt_area" placeholder="pt_area">
+      <input type="text" name="pt_ter" placeholder="pt_ter">
+      <select name="adapt_scale" required>
+        <option value=0>0</option>
+      </select>
+      <select name="year" required>
+        <option value=2019>2019</option>
+        <option value=2021>2021</option>
+      </select>
+      <input type="submit" value="Update">
+    </form>
+    <h1>Видалення Person-Subject-Eo</h1>
+    <form action="{{ url_for('delete_pse') }}" method="POST">
+        <select name="out_id" required>
+       {% for value in id_values %}
+        <option value="{{value}}">{{value}}</option>
+       {% endfor %}
+      </select>
+      <select name="subject_name" required>
+       {% for value in s %}
+        <option value="{{value}}">{{value}}</option>
+       {% endfor %}
+      </select>
+      <select name="eo_name" required>
+         {% for value in eo_values %}
+        <option value="{{value}}">{{value}}</option>
+         {% endfor %}
+      </select>
+      <input type="submit" value="Delete">
+    </form>
+    <table>
+    <tr>
+      <th><p>OUTID</p></th>
+      <th>SUBJECT</th>
+      <th>EO</th>
+      <th>BALL</th>
+      <th>BALL12</th>
+      <th>BALL100</th>
+      <th>STATUS</th>
+      <th>LANG</th>
+      <th>DPA LEVEL</th>
+      <th>ADAPT SCALE</th>
+      <th>PT NAME</th>
+      <th>PT REG</th>
+      <th>PT AREA</th>
+      <th>PT TER</th>
+      <th>YEAR</th>
+    </tr>
+    {% for pse in pses %}
+    <tr>
+      <th>{{ pse.out_id }}</th>
+      <th>{{ pse.subject_name }}</th>
+      <th>{{ pse.eo_name }}</th>
+      <th>{{ pse.ball }}</th>
+      <th>{{ pse.ball_12 }}</th>
+      <th>{{ pse.ball_100 }}</th>
+      <th>{{ pse.status }}</th>
+      <th>{{ pse.lang }}</th>
+      <th>{{ pse.dpa_level }}</th>
+      <th>{{ pse.adapt_scale }}</th>
+      <th>{{ pse.pt_name }}</th>
+      <th>{{ pse.pt_reg }}</th>
+      <th>{{ pse.pt_area }}</th>
+      <th>{{ pse.pt_ter }}</th>
+      <th>{{ pse.year }}</th>
+    </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>

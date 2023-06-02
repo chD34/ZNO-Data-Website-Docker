@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>eo page</title>
+  <style>
+    body{
+      background: linear-gradient(180deg, rgba(69,165,218,1) 1%, rgba(74,196,228,1) 36%, rgba(61,251,252,1) 60%, rgba(194,218,218,0.9949229691876751) 100%);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    input{
+      font-size: 20px;
+    }
+    select{
+      font-size: 20px;
+    }
+    h1{
+      font-size: 40px;
+      text-align: center;
+    }
+    th{
+      background-color: white;
+    }
+    table{
+      margin-top: 20px;
+    }
+    a{
+      font-size:30px;
+      text-decoration: none;
+      background-color: white;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+    <a href="{{url_for('index')}}">На головну</a>
+    <h1>Створення Eo</h1>
+    <form action="{{ url_for('create_eo') }}" method="POST">
+      <input type="text" name="eo_name" placeholder="eo_name" required>
+      <input type="text" name="eo_type_name" placeholder="eo_type_name" required>
+      <input type="text" name="eo_reg_name" placeholder="eo_reg_name" required>
+      <input type="text" name="eo_area_name" placeholder="eo_area_name" required>
+      <input type="text" name="eo_ter_name" placeholder="eo_ter_name" required>
+      <input type="text" name="eo_parent" placeholder="eo_parent" required>
+      <input type="submit" value="Create">
+    </form>
+    <h1>Оновлення Eo</h1>
+    <form action="{{ url_for('update_eo') }}" method="POST">
+      <select name="eo_name" required>
+       {% for value in eo_values %}
+        <option value="{{value}}">{{value}}</option>
+       {% endfor %}
+      </select>
+        <input type="text" name="eo_type_name" placeholder="eo_type_name" required>
+        <input type="text" name="eo_reg_name" placeholder="eo_reg_name" required>
+        <input type="text" name="eo_area_name" placeholder="eo_area_name" required>
+        <input type="text" name="eo_ter_name" placeholder="eo_ter_name" required>
+        <input type="text" name="eo_parent" placeholder="eo_parent" required>
+        <input type="submit" value="Update">
+    </form>
+    <h1>Видалення Eo</h1>
+    <form action="{{ url_for('delete_eo') }}" method="POST">
+       <select name="eo_name" required>
+       {% for value in eo_values %}
+        <option value="{{value}}">{{value}}</option>
+       {% endfor %}
+      </select>
+        <input type="submit" value="Delete">
+    </form>
+    <table>
+    <tr>
+    {% for eo in eos %}
+      <th>{{ eo.eo_name }}</th>
+      <th>{{ eo.eo_type_name }}</th>
+      <th>{{ eo.eo_reg_name }}</th>
+      <th>{{ eo.eo_area_name }}</th>
+      <th>{{ eo.eo_ter_name }}</th>
+      <th>{{ eo.eo_parent }}</th>
+    </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>

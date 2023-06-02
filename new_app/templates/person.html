@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>person page</title>
+  <style>
+    body{
+      background: linear-gradient(180deg, rgba(69,165,218,1) 1%, rgba(74,196,228,1) 36%, rgba(61,251,252,1) 60%, rgba(194,218,218,0.9949229691876751) 100%);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    input{
+      font-size: 20px;
+    }
+    select{
+      font-size: 20px;
+    }
+    h1{
+      font-size: 40px;
+      text-align: center;
+    }
+    th{
+      background-color: white;
+    }
+    table{
+      margin-top: 20px;
+    }
+    a{
+      font-size:30px;
+      text-decoration: none;
+      background-color: white;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+    <a href="{{url_for('index')}}">На головну</a>
+    <h1>Створення Person</h1>
+    <form action="{{ url_for('create') }}" method="POST">
+      <input type="text" name="out_id" placeholder="out_id" required>
+
+      <select name="eo_name" required>
+       {% for value in eo_values %}
+        <option value="{{value}}">{{value}}</option>
+       {% endfor %}
+      </select>
+      <select name="birth"  required>
+        <option value=1997>1997</option>
+        <option value=1998>1998</option>
+        <option value=1999>1999</option>
+        <option value=2000>2000</option>
+        <option value=2001>2001</option>
+        <option value=2002>2002</option>
+        <option value=2003>2003</option>
+        <option value=2004>2004</option>
+        <option value=2005>2005</option>
+      </select>
+      <select name="sex"  required>
+        <option value="жіноча">жіноча</option>
+        <option value="чоловіча">чоловіча</option>
+      </select>
+      <select name="region"  required>
+        <option value="Житомирська область">Житомирська область</option>
+        <option value="Автономна Республіка Крим">Автономна Республіка Крим</option>
+        <option value="Вінницька область">Вінницька область</option>
+        <option value="Волинська область">Волинська область</option>
+        <option value="Дніпропетровська область">Дніпропетровська область</option>
+        <option value="Донецька область">Донецька область</option>
+        <option value="Закарпатська область">Закарпатська область</option>
+        <option value="Запорізька область">Запорізька область</option>
+        <option value="Івано-Франківська область">Івано-Франківська область</option>
+        <option value="Київська область">Київська область</option>
+        <option value="Кіровоградська область">Кіровоградська область</option>
+        <option value="Луганська область">Луганська область</option>
+        <option value="Львівська область">Львівська область</option>
+        <option value="Миколаївська область">Миколаївська область</option>
+        <option value="Одеська область">Одеська область</option>
+        <option value="Полтавська область">Полтавська область</option>
+        <option value="Рівненська область">Рівненська область</option>
+        <option value="Сумська область">Сумська область</option>
+        <option value="Тернопільська область">Тернопільська область</option>
+        <option value="Харківська область">Харківська область</option>
+        <option value="Херсонська область">Херсонська область</option>
+        <option value="Хмельницька область">Хмельницька область</option>
+        <option value="Черкаська область">Черкаська область</option>
+        <option value="Чернівецька область">Чернівецька область</option>
+        <option value="Чернігівська область">Чернігівська область</option>
+        <option value="м.Київ">м.Київ</option>
+      </select>
+      <input type="text" name="area_name" placeholder="area_name">
+      <input type="text" name="ter_name" placeholder="ter_name">
+      <input type="text" name="reg_type_name" placeholder="reg_type_name">
+      <input type="text" name="ter_type_name" placeholder="ter_type_name">
+      <input type="text" name="class_prof_name" placeholder="class_prof_name">
+      <input type="text" name="class_lang_name" placeholder="class_lang_name">
+      <input type="submit" value="Create">
+    </form>
+    <h1>Оновлення Person</h1>
+    <form action="{{ url_for('update') }}" method="POST">
+      <select name="out_id" required>
+       {% for value in id_values %}
+        <option value="{{value}}">{{value}}</option>
+       {% endfor %}
+      </select>
+        <select name="eo_name" required>
+         {% for value in eo_values %}
+        <option value="{{value}}">{{value}}</option>
+         {% endfor %}
+        </select>
+        <select name="birth"  required>
+        <option value=1997>1997</option>
+        <option value=1998>1998</option>
+        <option value=1999>1999</option>
+        <option value=2000>2000</option>
+        <option value=2001>2001</option>
+        <option value=2002>2002</option>
+        <option value=2003>2003</option>
+        <option value=2004>2004</option>
+        <option value=2005>2005</option>
+      </select>
+      <select name="sex"  required>
+        <option value="жіноча">жіноча</option>
+        <option value="чоловіча">чоловіча</option>
+      </select>
+      <select name="region"  required>
+        <option value="Житомирська область">Житомирська область</option>
+        <option value="Автономна Республіка Крим">Автономна Республіка Крим</option>
+        <option value="Вінницька область">Вінницька область</option>
+        <option value="Волинська область">Волинська область</option>
+        <option value="Дніпропетровська область">Дніпропетровська область</option>
+        <option value="Донецька область">Донецька область</option>
+        <option value="Закарпатська область">Закарпатська область</option>
+        <option value="Запорізька область">Запорізька область</option>
+        <option value="Івано-Франківська область">Івано-Франківська область</option>
+        <option value="Київська область">Київська область</option>
+        <option value="Кіровоградська область">Кіровоградська область</option>
+        <option value="Луганська область">Луганська область</option>
+        <option value="Львівська область">Львівська область</option>
+        <option value="Миколаївська область">Миколаївська область</option>
+        <option value="Одеська область">Одеська область</option>
+        <option value="Полтавська область">Полтавська область</option>
+        <option value="Рівненська область">Рівненська область</option>
+        <option value="Сумська область">Сумська область</option>
+        <option value="Тернопільська область">Тернопільська область</option>
+        <option value="Харківська область">Харківська область</option>
+        <option value="Херсонська область">Херсонська область</option>
+        <option value="Хмельницька область">Хмельницька область</option>
+        <option value="Черкаська область">Черкаська область</option>
+        <option value="Чернівецька область">Чернівецька область</option>
+        <option value="Чернігівська область">Чернігівська область</option>
+        <option value="м.Київ">м.Київ</option>
+      </select>
+        <input type="text" name="area_name" placeholder="area_name">
+        <input type="text" name="ter_name" placeholder="ter_name">
+        <input type="text" name="reg_type_name" placeholder="reg_type_name">
+        <input type="text" name="ter_type_name" placeholder="ter_type_name">
+        <input type="text" name="class_prof_name" placeholder="class_prof_name">
+        <input type="text" name="class_lang_name" placeholder="class_lang_name">
+        <input type="submit" value="Update">
+    </form>
+    <h1>Видалення Person</h1>
+    <form action="{{ url_for('delete') }}" method="POST">
+       <select name="out_id" required>
+       {% for value in id_values %}
+        <option value="{{value}}">{{value}}</option>
+       {% endfor %}
+      </select>
+        <input type="submit" value="Delete">
+    </form>
+    <table>
+    <tr>
+    {% for person in persons %}
+      <th>{{ person.out_id }}</th>
+      <th>{{ person.eo_name }}</th>
+      <th>{{ person.birth }}</th>
+      <th>{{ person.sex }}</th>
+      <th>{{ person.region }}</th>
+      <th>{{ person.area_name }}</th>
+      <th>{{ person.ter_name }}</th>
+      <th>{{ person.reg_type_name }} </th>
+      <th>{{ person.ter_type_name }} </th>
+      <th>{{ person.class_prof_name }} </th>
+      <th>{{ person.class_lang_name }}</th>
+    </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>

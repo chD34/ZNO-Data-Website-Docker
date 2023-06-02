@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>main page</title>
+  <style>
+    body{
+      background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+      background: content;
+    }
+    a{
+      font-size: 40px;
+      text-decoration: none;
+    }
+    li{
+      padding-top: 38px;
+      list-style-type: none;
+    }
+    h1{
+      text-align: center;
+      font-size: 60px;
+      color:#524C4C;
+      padding:20px
+    }
+    .container{
+      border: 5px solid grey;
+      text-align: center;
+      margin-top: 100px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: white;
+      height: 500px;
+      width: 600px;
+      position: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Zno data</h1>
+  <div class = 'container'>
+    <ul>
+    <li><a href="{{url_for('person', page=1)}}">Person</a></li>
+      <li><a href="{{url_for('eo', page=2)}}">Eo</a></li>
+      <li><a href="{{url_for('subject', page=3)}}">Subject</a></li>
+      <li><a href="{{url_for('pse', page=4)}}">Person-Subject-Eo</a></li>
+      <li><a href="{{url_for('requests', page=5)}}">Requests</a></li>
+    </ul>
+  </div>
+</body>
+</html>
