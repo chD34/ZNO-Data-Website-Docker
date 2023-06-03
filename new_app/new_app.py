@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
+import json
 import psycopg2
 import csv
-from flask_caching import Cache
 from sqlalchemy import text, func, and_, or_
 from sqlalchemy.exc import IntegrityError
 import redis
@@ -40,10 +40,13 @@ db = SQLAlchemy(app)
 app.debug = True
 app.secret_key = 'my_key'
 
-# Створення об'єкту кешування
-cache = Cache(app)
-app.config['CACHE_TYPE'] = 'redis'
-app.config['CACHE_REDIS_URL'] = 'redis://localhost:6379/0'
+# кешування
+redis_host = 'redis'  # Адреса хоста Redis
+redis_port = 6379  # Порт Redis
+redis_db = 0  # Номер бази даних Redis
+
+redis_connection = redis.Redis(host=redis_host, port=redis_port, db=redis_db)
+
 
 class Eo(db.Model):
     __tablename__ = 'eo'
@@ -299,7 +302,7 @@ def update_pse():
         pse.year = request.form['year']
         db.session.commit()
     else:
-       flash('Дані з таким ключем не існують в таблиці. Якщо потрібно створити скористайтеся Create')
+        flash('Дані з таким ключем не існують в таблиці. Якщо потрібно створити скористайтеся Create')
     return redirect(url_for('pse', page=4))
 
 
@@ -318,12 +321,31 @@ def delete_pse():
 
 
 @app.route('/requests/<int:page>', methods=['GET', 'POST'])
-@cache.cached(timeout=120)  # Кешування на 120 секунд
 def requests(page=5):
-    year = request.form.get('year')
-    subject_name = request.form.get('subject_name')
+    year = request.form['year']
+    subject_name = request.form['subject_name']
+    cache_key = f'requests:{year}:{subject_name}'  # ключ кешування
+
+    cached_data = redis_connection.get(cache_key)
+    if cached_data:
+        max_ball = json.loads(cached_data)
+    else:
+        # якщо нема кешу
+        max_ball = db.session.query(Person.region, func.max(PersonSubjectEo.ball_100).label('max_ball')).join(
+            Person).filter(PersonSubjectEo.year == year, PersonSubjectEo.subject_name == subject_name,
+                           PersonSubjectEo.status == 'Зараховано').group_by(Person.region).all()
+
+        # зберігання у кеш
+        max_ball_data = []
+        for row in max_ball:
+            max_ball_data.append({
+                'region': str(row[0]),
+                'max_ball': str(row[1])
+            })
+
+        redis_connection.set(cache_key, json.dumps(max_ball_data, default=str))
+
     subject_names = set([row.subject_name for row in PersonSubjectEo.query.all()])
-    max_ball = db.session.query(Person.region, func.max(PersonSubjectEo.ball_100)).join(Person).filter(PersonSubjectEo.year == year, PersonSubjectEo.subject_name == subject_name, PersonSubjectEo.status == 'Зараховано').group_by(Person.region).all()
     return render_template('requests.html', max_ball=max_ball, subject_names=subject_names)
 
 
