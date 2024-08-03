@@ -14,5 +14,3 @@ docker-compose create
 4) Run container flyway-1. Wait message "flyway exited with code 0".
 5) Run container new_app-1. 
 6) Go to localhost:5000
-
-Remark: app-1 contains 
