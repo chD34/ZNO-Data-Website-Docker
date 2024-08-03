@@ -1,15 +1,18 @@
-Проект для створення додатку у вигляді сайту за допомогою Docker для виконання CRUD операцій
-з даними таблиць, які містять дані про результати ЗНО та частково з виводом статистики
+
+A project realized to create an application in the form of a Website using Docker containers. 
+It performs CRUD operations on the data in tables, which contain results of the ZNO (external examination).
 
 #Інструкція
 
-1) Для запуску(створення контейнерів) виконати наступну команду
+1) For running(creating containers) perform next command:
 
 ```bach
 docker-compose create 
 ```
-2) запускаємо контейнери db-1, app-1 у такій послідовності.
-3) Чекати, поки app не відпрацює.
-4) Запускаємо контейнер flyway-1. Чекаємо "flyway exited with code 0".
-5) Запускаємо контейнер new_app-1. 
-6) Заходимо на localhost:5000
+2) Run containers db-1, app-1 in that order.
+3) Wait until app ends its work.
+4) Run container flyway-1. Wait message "flyway exited with code 0".
+5) Run container new_app-1. 
+6) Go to localhost:5000
+
+Remark: app-1 contains 
